@@ -1,21 +1,50 @@
-import React from "react";
+import {Component} from "react";
+import Notiflix from 'notiflix';
 
-export const Searchbar = ({onSubmit}) => {
+
+
+
+export class Searchbar extends Component {
+
+    state = {
+        name: ''
+    };
+
+    searchImage = e => {
+        this.setState({name: e.currentTarget.value.toLowerCase()});
+    };
+
+    imageSubmit = e => {
+        e.preventDefault();
+
+        if (this.state.name.trim() === '') {
+            Notiflix.Notify.info('Enter the name of the image!');
+            return;
+        }
+
+        this.props.onSubmit(this.state.name);
+        this.setState({name: ''});
+    };
+
+render() {
     return (
-<header class="searchbar">
-  <form class="form">
-    <button type="submit" class="button">
-      <span class="button-label">Search</span>
-    </button>
-
-    <input
-      class="input"
-      type="text"
-      autocomplete="off"
-      autofocus
-      placeholder="Search images and photos"
-    />
-  </form>
-</header>
-    )
+        <header className="Searchbar">
+          <form className="SearchForm" onSubmit={this.imageSubmit}>
+            <input
+              className="SearchForm-input"
+              type="text"
+              autoComplete="off"
+              autoFocus
+              placeholder="Search images and photos"
+              value={this.state.name}
+              onChange={this.searchImage}
+            />
+              <button type="submit" className="SearchForm-button">
+              <span className="Button-label">Search</span>
+            </button>
+          </form>
+        </header>
+            )
+}
+  
 }

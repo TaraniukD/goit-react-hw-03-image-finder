@@ -2,6 +2,6 @@ import React from "react";
 
 export const Button = () => {
     return (
-        <button type="button">Load More</button>
+        <button type="button" className="Button">Load More</button>
     )
 }
