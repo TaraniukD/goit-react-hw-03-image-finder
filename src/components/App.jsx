@@ -20,7 +20,7 @@ export class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const { name, page } = this.state;
 
-    if (prevState.name !== name || prevState.name !== name) {
+    if (prevState.name !== name || prevState.page !== page) {
       try {
         this.setState({ loading: true });
 
@@ -46,20 +46,26 @@ export class App extends Component {
 }
 
   handleFormSubmit = name => {
-    this.setState({name})
+    this.setState({name, page: 1})
   }
 
-  render() {
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }))
+  };
 
+  render() {
     const { loading, name, images, totalHits } = this.state;
+
     return (
       <div className="Conteiner">
         <Searchbar onSubmit={this.handleFormSubmit}/>
         {loading && <Loader />} 
         {name ? 
-        <ImageGallery images={images} showModal={this.toggleModal}/> :
-        <p>Enter the name of the picture to search!</p>}
-        {totalHits > 0 && <Button />}
+        <ImageGallery images={images}/> :
+        <p className="ImageGallery-text">Enter the name of the picture to search!</p>}
+        {totalHits > 0 && <Button loadMore={this.loadMore}/>}
       </div>
     );
   }
