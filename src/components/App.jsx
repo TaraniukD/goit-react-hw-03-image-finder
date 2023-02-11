@@ -58,7 +58,7 @@ export class App extends Component {
         {loading && <Loader />} 
         {name ? 
         <ImageGallery images={images} showModal={this.toggleModal}/> :
-        <p>Enter a name for the image!</p>}
+        <p>Enter the name of the picture to search!</p>}
         {totalHits > 0 && <Button />}
       </div>
     );
