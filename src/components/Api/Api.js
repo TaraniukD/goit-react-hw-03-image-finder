@@ -12,7 +12,6 @@ axios.defaults.baseURL = 'https://pixabay.com/api/';
 export const fetchImages = async (query, page) => {
   const response = await axios.get(`?q=${query}&page=${page}&${urlSettings}`);
   const data = response.data;
-  console.log(data)
 
   return data;
 };

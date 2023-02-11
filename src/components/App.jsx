@@ -1,12 +1,12 @@
 import { Component } from "react";
 import Notiflix from 'notiflix';
-import { fetchImages } from "components/Api";
+import { fetchImages } from "components/Api/Api";
 import { Searchbar } from "components/Searchbar/Searchbar";
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { Loader } from "components/Loader/Loader";
 import { Button } from "components/Button/Button";
+
 import './styles.css';
-
-
 
 export class App extends Component {
   state = {
@@ -43,27 +43,23 @@ export class App extends Component {
         Notiflix.Notify.warning(`Something went wrong! ${error}`);
       }
     }
-
-  
 }
 
   handleFormSubmit = name => {
     this.setState({name})
-    console.log(name);
   }
- 
+
   render() {
+
+    const { loading, name, images, totalHits } = this.state;
     return (
-      <div
-        style={{
-          height: '100vh',
-          fontSize: 40,
-          color: '#010101'
-        }}
-      >
+      <div className="Conteiner">
         <Searchbar onSubmit={this.handleFormSubmit}/>
-       <ImageGallery images={this.state.images}/>
-        <Button />
+        {loading && <Loader />} 
+        {name ? 
+        <ImageGallery images={images} showModal={this.toggleModal}/> :
+        <p>Enter a name for the image!</p>}
+        {totalHits > 0 && <Button />}
       </div>
     );
   }

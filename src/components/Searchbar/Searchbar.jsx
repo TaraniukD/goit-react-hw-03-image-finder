@@ -1,8 +1,6 @@
 import {Component} from "react";
 import Notiflix from 'notiflix';
-
-
-
+import PropTypes from 'prop-types';
 
 export class Searchbar extends Component {
 
@@ -17,16 +15,21 @@ export class Searchbar extends Component {
     imageSubmit = e => {
         e.preventDefault();
 
-        if (this.state.name.trim() === '') {
+        const  { name } = this.state;
+        const { onSubmit } = this.props;
+
+        if (name.trim() === '') {
             Notiflix.Notify.info('Enter the name of the image!');
             return;
         }
 
-        this.props.onSubmit(this.state.name);
+        onSubmit(name);
         this.setState({name: ''});
     };
 
 render() {
+  const { name } = this.state;
+
     return (
         <header className="Searchbar">
           <form className="SearchForm" onSubmit={this.imageSubmit}>
@@ -36,7 +39,7 @@ render() {
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
-              value={this.state.name}
+              value={name}
               onChange={this.searchImage}
             />
               <button type="submit" className="SearchForm-button">
@@ -45,6 +48,9 @@ render() {
           </form>
         </header>
             )
+       }
 }
-  
-}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+};
