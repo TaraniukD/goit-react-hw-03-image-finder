@@ -1,4 +1,4 @@
-import {Component} from "react";
+import { Component } from "react";
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 
@@ -6,15 +6,8 @@ export class Searchbar extends Component {
 
     state = {
         name: '',
-        page: 1,
     };
     
-    componentDidUpdate(prevProps, prevState) {
-if (prevState.page !== this.state.page || prevState.name !== this.state.name) {
-  
-}
-    }
-
     searchImage = e => {
         this.setState({name: e.currentTarget.value.toLowerCase()});
     };
